@@ -1,31 +1,42 @@
-<!-- Sidebar navigation -->
-<div class="container-fluid">
-  <div class="row">
-
-    <!-- Main content -->
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="inner-adjust">
-
-        <div class="pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">User Profile</h1>
+<div class="container dashboard">
+  <div class="inner-adjust">
+    <div class="pt-3 pb-2 mb-3 border-bottom">
+      <h5 class="h2">User Profile</h5>
+    </div>
+    <div *ngIf="authService.userData as user">
+      <div class="row border-bottom">
+        <div class="col-md-4">
+          <h5>Profile Picture</h5>
         </div>
-        <!-- Show user data when logged in -->
-        <div class="row" *ngIf="authService.userData as user">
-          <div class="col-md-12">
-            <div class="media">
-              <img class="align-self-start mr-5 img-thumbnail rounded-circle" src="{{(user.photoURL) ? user.photoURL : '/assets/dummy-user.png'}}"
-                alt="{{user.displayName}}">
-              <div class="media-body">
-                <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
-                <p>User ID: <strong>{{user.uid}}</strong></p>
-                <p>Email: <strong>{{user.email}}</strong></p>
-                <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
-              </div>
-            </div>
+        <div class="col-md-8" class="picture">
+          <div class="img-area">
+            <img class="align-self-start mr-5 img-thumbnail rounded-circle" src="{{user.photoURL ? user.photoURL : '/assets/dummy-user.png'}}"
+              alt="{{user.displayName}}">
+          </div>
+          <div class="text-area">
+            <label>Update Profie Picture</label>
+            <input type='file' name='file' id='file' class='input-file' onChange={this.handleImageChange} />
+            <label for='file' class='change-photo'>Change Photo</label>
           </div>
         </div>
       </div>
-    </main>
-
+      <div class="row hello border-bottom">
+        <div class="col-md-4"><h5>Full Name</h5></div>
+        <div class="col-md-8"><input value="{{(user.displayName) ? user.displayName : 'User'}}"/></div>
+      </div>
+      <div class="row border-bottom">
+        <div class="col-md-4"><h5>Email</h5></div>
+        <div class="col-md-8"><input value="{{user.email}}" /></div>
+      </div>
+      <div class="row border-bottom">
+        <div class="col-md-4"><h5>Email Verified</h5></div>
+        <div class="col-md-8"><h5>{{user.emailVerified}}</h5></div>
+      </div>
+      <div class="row border-bottom">
+        <div class="col-md-12">
+          <button mat-raised-button color="primary" >Save Change</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

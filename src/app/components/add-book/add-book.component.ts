@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
-import { BookService } from './../../shared/book.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+
+import { BookService } from './../../shared/book.service';
 
 export interface Language {
   name: string;
@@ -19,6 +21,8 @@ export class AddBookComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   languageArray: Language[] = [];
+  file;
+  uploadError;
   @ViewChild('chipList', { static: true }) chipList;
   @ViewChild('resetBookForm', { static: true }) myNgForm;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -32,6 +36,7 @@ export class AddBookComponent implements OnInit {
   }
 
   constructor(
+    private router: Router,
     public fb: FormBuilder,
     private bookApi: BookService
   ) { }
@@ -96,9 +101,24 @@ export class AddBookComponent implements OnInit {
   /* Submit book */
   submitBook() {
     if (this.bookForm.valid){
-      this.bookApi.AddBook(this.bookForm.value)
+      this.bookApi.AddBook(this.bookForm.value, this.file)
       this.resetForm();
+      this.router.navigate(['books-list']);
     }
   }
 
+  fileChangeEvent(event) {
+    if (!event.target.files.length) {
+      this.file = null;
+      return;
+    }
+
+    let reader = new FileReader();
+    this.file = event.target.files[0];
+    let fileSize = ((this.file.size / 1024) / 1024);
+    if (fileSize > 10)
+      this.uploadError = `File to large, max size is 10 MB but yours is ${Number(fileSize).toFixed(2)} MB.`
+    else 
+      this.uploadError = '';
+  }
 }

@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 
 export class AuthService {
   userData: any; // Save logged in user data
+  failed: boolean;
 
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
@@ -34,13 +35,13 @@ export class AuthService {
   SignIn(email, password) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
-        console.log('SignIn')
         this.ngZone.run(() => {
           this.router.navigate(['dashboard']);
         });
         this.SetUserData(result.user);
       }).catch((error) => {
-        window.alert(error.message)
+        // window.alert(error.message)
+        this.failed = true;
       })
   }
 

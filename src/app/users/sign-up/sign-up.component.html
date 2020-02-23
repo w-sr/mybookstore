@@ -5,18 +5,35 @@
       <mat-card-title>Regiser</mat-card-title>
     </mat-card-header>
 
-    <form class="example-form">
+    <form class="example-form" [formGroup]="userEmails">
       <mat-card-content>
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Email Address" #userEmail required>
+          <input matInput type="email"
+            [class.is-invalid] = "userEmails.get('email').invalid"
+            class="form-control" formControlName="email" placeholder="Email Address" #userEmail required 
+          />
         </mat-form-field>
 
+        <div *ngIf="(email.invalid && email.touched) || email.dirty">
+          <small *ngIf="email.hasError('required')" class="text-danger">Email is required</small>
+          <small *ngIf="email.hasError('pattern')" class="text-danger">Please provide a valid email address</small>
+        </div>
+
         <mat-form-field class="example-full-width">
-          <input type="password" matInput placeholder="Password" #userPassword required>
+          <input matInput type="password"
+            [class.is-invalid] = "userEmails.get('password').invalid"
+            clas="form-control" formControlName="password" placeholder="Password" #userPassword required 
+          />
         </mat-form-field>
-        <button mat-stroked-button color="accent" class="btn-block" (click)="authService.SignUp(userEmail.value, userPassword.value)">Sign Up</button>
+
+        <div *ngIf="(password.invalid && password.touched)">
+          <small *ngIf="password.hasError('required')" class="text-danger">Passwrd is required</small>
+          <small *ngIf="password.hasError('minlength')" class="text-danger">Please enter at least 8 characters</small>
+        </div>
+
+        <button mat-raised-button color="accent" class="btn-block" (click)="authService.SignUp(userEmail.value, userPassword.value)">Sign Up</button>
         <p>Or</p>
-        <button mat-stroked-button color="accent" class="btn-block" (click)="authService.GoogleAuth()">
+        <button mat-raised-button color="accent" class="btn-block" (click)="authService.GoogleAuth()">
           Continue with Google
         </button>
 

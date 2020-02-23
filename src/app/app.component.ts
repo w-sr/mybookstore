@@ -1,6 +1,13 @@
 import { Component, ViewChild, HostListener, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from "./shared/services/auth.service";
+import { MatDialog } from '@angular/material/dialog';
+import { MessageBoxComponent } from './components/message-box/message-box.component';
+
+export interface DialogData {
+  message: string;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,10 +15,14 @@ import { AuthService } from "./shared/services/auth.service";
 })
 export class AppComponent implements OnInit {
   opened = true;
+  animal: string;
+  name: string;
+
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
 
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
+    public dialog: MatDialog
   ) { }
   ngOnInit() {
     if (window.innerWidth < 768) {
@@ -41,5 +52,18 @@ export class AppComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  signOut(): void {
+    const dialogRef = this.dialog.open(MessageBoxComponent, {
+      width: '250px',
+      data: {message: "Do you want to sign out?"}
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.authService.SignOut()
+      }
+    });
   }
 }

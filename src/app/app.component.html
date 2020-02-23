@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" class="header" *ngIf="authService.isLoggedIn">
   <div>Book Store</div>
   <span class="nav-tool-items">
-    <mat-icon size="32" class="person" (click)="authService.SignOut()">person</mat-icon>
+    <mat-icon size="32" class="person" (click)="signOut()">exit_to_app</mat-icon>
     <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
   </span>
 </mat-toolbar>
@@ -13,8 +13,14 @@
       <a mat-list-item routerLinkActive="active" routerLink="/add-book">
         <mat-icon>add</mat-icon> Add Book
       </a>
-      <a mat-list-item routerLinkActive="active" routerLink="/books-list">
+      <a mat-list-item routerLinkActive="active" routerLink="/books-list" class="view-books">
         <mat-icon>format_list_bulleted</mat-icon> View Books
+      </a>
+
+      <mat-divider></mat-divider>
+
+      <a mat-list-item routerLinkActive="active" routerLink="/dashboard" class="settings">
+        <mat-icon>settings</mat-icon> Settings
       </a>
     </mat-nav-list>
   </mat-sidenav>

@@ -1,13 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { AngularMaterialModule } from './material.module';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material';
 
 import { AuthService } from './shared/services/auth.service'
 import { environment } from 'src/environments/environment';
@@ -24,6 +26,7 @@ import { SignUpComponent } from './users/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './users/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './users/verify-email/verify-email.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MessageBoxComponent } from './components/message-box/message-box.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     ForgotPasswordComponent,
     VerifyEmailComponent,
     DashboardComponent,
+    MessageBoxComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,9 +49,12 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     FormsModule,
+    MatDialogModule,
     ReactiveFormsModule
   ],
+  entryComponents: [MessageBoxComponent],
   providers: [BookService, AuthService, AngularFirestore],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
