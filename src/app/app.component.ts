@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   opened = true;
   animal: string;
   name: string;
+  show = true;
 
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
 
@@ -65,5 +66,9 @@ export class AppComponent implements OnInit {
         this.authService.SignOut()
       }
     });
+  }
+
+  click() {
+    this.show = !this.show;
   }
 }

@@ -10,6 +10,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AddBookComponent } from './components/add-book/add-book.component';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { EditBookComponent } from './components/edit-book/edit-book.component';
+import { ChatBotComponent } from './components/chat-bot/chat-bot.component';
 
 import { AuthGuard } from "./shared/guard/auth.guard";
 import { SecureInnerPagesGuard } from "./shared/guard/secure-inner-pages.guard";
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'add-book', component: AddBookComponent },
   { path: 'edit-book/:id', component: EditBookComponent },
-  { path: 'books-list', component: BookListComponent }
+  { path: 'books-list', component: BookListComponent },
+  { path: 'chat-bot', component: ChatBotComponent}
 ];
 
 @NgModule({

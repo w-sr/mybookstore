@@ -9,7 +9,11 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NbThemeModule, NbLayoutModule, NbChatModule, NbSpinnerModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { MatDialogModule } from '@angular/material';
+import { CommonModule } from "@angular/common";
+import { HttpClientModule } from '@angular/common/http';
 
 import { AuthService } from './shared/services/auth.service'
 import { environment } from 'src/environments/environment';
@@ -27,6 +31,7 @@ import { ForgotPasswordComponent } from './users/forgot-password/forgot-password
 import { VerifyEmailComponent } from './users/verify-email/verify-email.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MessageBoxComponent } from './components/message-box/message-box.component';
+import { ChatBotComponent } from './components/chat-bot/chat-bot.component';
 
 @NgModule({
   declarations: [
@@ -40,19 +45,28 @@ import { MessageBoxComponent } from './components/message-box/message-box.compon
     VerifyEmailComponent,
     DashboardComponent,
     MessageBoxComponent,
+    ChatBotComponent,
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
     FormsModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NbThemeModule.forRoot({ name: 'fefault' }),
+    NbLayoutModule,
+    NbEvaIconsModule,
+    NbChatModule,
+    NbSpinnerModule,
+    NbThemeModule.forRoot({ name: 'default' })
   ],
   entryComponents: [MessageBoxComponent],
   providers: [BookService, AuthService, AngularFirestore],

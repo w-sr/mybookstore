@@ -41,7 +41,6 @@ export class EditBookComponent implements OnInit {
   ) { 
     var id = this.actRoute.snapshot.paramMap.get('id');
     this.bookApi.GetBook(id).subscribe(data => {
-      console.log(data.data())
       this.languageArray = data.data().langauges;
       this.editBookForm.setValue(data.data());
     })

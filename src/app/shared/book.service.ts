@@ -71,6 +71,5 @@ export class BookService {
   }
   // Error management
   private errorMgmt(error) {
-    console.log(error)
   }
 }

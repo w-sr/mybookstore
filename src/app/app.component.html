@@ -1,32 +1,43 @@
-<mat-toolbar color="primary" class="header" *ngIf="authService.isLoggedIn">
-  <div>Book Store</div>
-  <span class="nav-tool-items">
-    <mat-icon size="32" class="person" (click)="signOut()">exit_to_app</mat-icon>
-    <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
-  </span>
-</mat-toolbar>
+<nb-layout>
+  <nb-layout-column>
+    <mat-toolbar color="primary" class="header" *ngIf="authService.isLoggedIn">
+      <div>Book Store</div>
+      <span class="nav-tool-items">
+        <mat-icon size="32" class="person" (click)="signOut()">exit_to_app</mat-icon>
+        <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
+      </span>
+    </mat-toolbar>
 
-<mat-sidenav-container>
-  <mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true"
-    *ngIf="authService.isLoggedIn">
-    <mat-nav-list>
-      <a mat-list-item routerLinkActive="active" routerLink="/add-book">
-        <mat-icon>add</mat-icon> Add Book
-      </a>
-      <a mat-list-item routerLinkActive="active" routerLink="/books-list" class="view-books">
-        <mat-icon>format_list_bulleted</mat-icon> View Books
-      </a>
+    <mat-sidenav-container>
+      <mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true"
+        *ngIf="authService.isLoggedIn">
+        <mat-nav-list>
+          <a mat-list-item routerLinkActive="active" routerLink="/add-book">
+            <mat-icon>add</mat-icon> Add Book
+          </a>
+          <a mat-list-item routerLinkActive="active" routerLink="/books-list" class="view-books">
+            <mat-icon>format_list_bulleted</mat-icon> View Books
+          </a>
 
-      <mat-divider></mat-divider>
+          <mat-divider></mat-divider>
 
-      <a mat-list-item routerLinkActive="active" routerLink="/dashboard" class="settings">
-        <mat-icon>settings</mat-icon> Settings
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
+          <a mat-list-item routerLinkActive="active" routerLink="/dashboard" class="settings">
+            <mat-icon>settings</mat-icon> Settings
+          </a>
+        </mat-nav-list>
+      </mat-sidenav>
 
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-
+      <mat-sidenav-content>
+        <router-outlet>       
+        </router-outlet>
+        <div *ngIf="!show">
+          <app-chat-bot></app-chat-bot>
+        </div>
+        <button class="chat-button" (click)="click()">
+          <mat-icon *ngIf="show">chat</mat-icon>
+          <mat-icon *ngIf="!show">close</mat-icon>
+        </button>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </nb-layout-column>
+</nb-layout>

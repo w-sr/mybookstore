@@ -53,12 +53,10 @@ export class BookListComponent {
   }
   
   open(index: number, e) {
-    // console.log('index', e.$key)
     this.storage.storage.ref('books-list').listAll()
       .then(res => {
         res.items.forEach(async item => {
           const url = await item.getDownloadURL();
-          console.log('url', url)
           window.open(url, "_blank");
         })
       });
